@@ -36,7 +36,8 @@ api.post('/join', function(req, res){
 		  //build the array for nearby 5 locations
 		  var location = [];
 
-		  for (var i = 0; i<5; i++)
+		  
+		  for (var i = 0; i<5 && google_rest_result.results[i].geometry.location.lat != null; i++)
 		  {
 		    var latitude = google_rest_result.results[i].geometry.location.lat;
 		    var longitude =google_rest_result.results[i].geometry.location.lng;
@@ -59,11 +60,7 @@ api.post('/join', function(req, res){
 
 
 				// call the built-in save method to save to the database
-				chris.save(function(err) {
-				  if (err) throw err;
-				});
-
-				var room_obj = new Room({
+				chris.save(function(err) {vrew Room({
 					room_num: req.body.room_num,
 					locations: location
 				});
